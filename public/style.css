@@ -1,0 +1,340 @@
+/* =====================================================================
+   RESET BÁSICO
+   Remove margens/paddings padrão do navegador para ter controle total do layout
+   ===================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =====================================================================
+   VARIÁVEIS GLOBAIS
+   Centralizar cores, fontes e tempos de transição aqui facilita ajustar
+   o tema inteiro depois sem caçar valores espalhados pelo arquivo
+   ===================================================================== */
+:root {
+  /* Paleta azul/preto */
+  --blue-950: #060b18;
+  --blue-900: #0a1e42;
+  --blue-700: #123c82;
+  --blue-600: #1a56db;
+  --blue-500: #2f6fff;
+
+  --white: #ffffff;
+  --gray-500: #98a2b3;
+  --ink: #0b1220;
+
+  --danger: #ff5a5f;
+  --success: #22c55e;
+
+  /* Tipografia: Poppins para o corpo, Arial Black (com fallback) para o título de destaque */
+  --font-body: 'Poppins', sans-serif;
+  --font-display: 'Arial Black', 'Poppins', sans-serif;
+
+  /* Tempos de animação centralizados */
+  --transition-slide: 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+  --transition-fast: 0.3s ease;
+}
+
+body {
+  font-family: var(--font-body);
+  height: 100vh;
+  overflow: hidden;
+  background: var(--blue-950);
+}
+
+/* =====================================================================
+   ESTRUTURA DOS DOIS PAINÉIS
+   Cada painel é posicionado de forma absoluta. Animar apenas a propriedade
+   "left" faz os dois painéis deslizarem e trocarem de lado — isso já gera
+   o efeito de "inverter as cores" sem precisar duplicar nenhum elemento.
+   ===================================================================== */
+.split-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: left var(--transition-slide);
+}
+
+.panel-inner {
+  width: 100%;
+  max-width: 420px;
+  padding: 48px;
+}
+
+/* Painel azul: sempre 65% de largura. Começa à esquerda (left: 0) */
+.panel-accent {
+  left: 0;
+  width: 60%;
+  background: linear-gradient(160deg, var(--blue-950) 0%, var(--blue-700) 55%, var(--blue-600) 100%);
+  z-index: 2;
+}
+
+.panel-accent .panel-inner {
+  position: relative; /* ancora os dois formulários (position: absolute) que ficam dentro */
+  min-height: 480px;  /* espaço de sobra para caber o formulário de cadastro, que é o maior */
+}
+
+/* Painel branco: sempre 35% de largura. Começa à direita (left: 65%) */
+.panel-content {
+  left: 60%;
+  width: 40%;
+  background: var(--white);
+  z-index: 1;
+  text-align: center;
+}
+
+/* Modo "criar conta": os painéis trocam de lado (a largura de cada um não muda) */
+.split-container.mode-signup .panel-accent {
+  left: 40%;
+}
+
+.split-container.mode-signup .panel-content {
+  left: 0;
+}
+
+/* =====================================================================
+   FORMULÁRIOS
+   Login e cadastro ocupam o mesmo espaço, um empilhado sobre o outro.
+   A troca entre eles é um crossfade (opacity + transform), sincronizado
+   com o tempo em que o painel azul termina de deslizar.
+   ===================================================================== */
+.auth-form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.4s ease 0.25s, transform 0.4s ease 0.25s;
+}
+
+/* Cadastro começa escondido, um pouco deslocado para a direita */
+#signupForm {
+  opacity: 0;
+  transform: translateX(24px);
+  pointer-events: none; /* impede clicar em campos invisíveis */
+}
+
+/* Ao entrar no modo cadastro: login some para a esquerda, cadastro aparece */
+.mode-signup #loginForm {
+  opacity: 0;
+  transform: translateX(-24px);
+  pointer-events: none;
+}
+
+.mode-signup #signupForm {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.form-title {
+  color: var(--white);
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.input-group input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 13px 16px;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--blue-500);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.form-message {
+  font-size: 0.82rem;
+  min-height: 16px;
+}
+
+.form-message.error { color: var(--danger); }
+.form-message.success { color: var(--success); }
+
+/* =====================================================================
+   BOTÕES
+   ===================================================================== */
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 13px 24px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+              background var(--transition-fast), color var(--transition-fast);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--blue-500);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--white);
+  color: var(--blue-700);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 2px solid var(--blue-600);
+  color: var(--blue-700);
+  margin-top: 20px;
+}
+
+.btn-ghost:hover {
+  background: var(--blue-600);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* =====================================================================
+   PAINEL DE BOAS-VINDAS
+   ===================================================================== */
+.welcome-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.welcome-subtitle {
+  color: var(--gray-500);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+
+/* =====================================================================
+   RESPONSIVO
+   Abaixo de 860px o layout lado a lado fica apertado demais; os painéis
+   passam a ficar empilhados e ocupam a largura toda da tela
+   ===================================================================== */
+@media (max-width: 860px) {
+  body {
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .split-container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .panel {
+    position: relative;
+    left: auto !important;
+    width: 100% !important;
+    padding: 40px 24px;
+  }
+
+  .panel-content {
+    order: -1; /* mostra a mensagem de boas-vindas antes do formulário no mobile */
+  }
+
+  .panel-accent .panel-inner {
+    min-height: auto;
+  }
+}
+
+/* =====================================================================
+   PÁGINA DE CONTA (dashboard.html) — o destino depois do login
+   ===================================================================== */
+.dashboard-body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--blue-950) 0%, var(--blue-700) 55%, var(--blue-600) 100%);
+}
+
+.dashboard-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 48px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+}
+
+.dashboard-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.dashboard-user {
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.dashboard-email {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+/* =====================================================================
+   ACESSIBILIDADE: respeita quem pede menos animação no sistema operacional
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

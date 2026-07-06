@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faça login ou crie uma conta</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Container principal: guarda os dois painéis que trocam de lado -->
+  <div class="split-container" id="splitContainer">
+
+    <!-- PAINEL AZUL -->
+    <section class="panel panel-accent" id="panelAccent">
+      <div class="panel-inner">
+
+        <!-- Formulário de Login (visível por padrão) -->
+        <form class="auth-form" id="loginForm" data-form="login" novalidate>
+          <h2 class="form-title">Entrar</h2>
+
+          <div class="input-group">
+            <label for="loginEmail">E-mail</label>
+            <input type="email" id="loginEmail" placeholder="Digite seu e-mail" required>
+          </div>
+
+          <div class="input-group">
+            <label for="loginPassword">Senha</label>
+            <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
+          </div>
+
+          <p class="form-message" id="loginMessage" aria-live="polite"></p>
+
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+
+        <!-- Formulário de Cadastro (escondido por padrão, aparece no modo "criar conta") -->
+        <form class="auth-form" id="signupForm" data-form="signup" novalidate>
+          <h2 class="form-title">Criar</h2>
+
+          <div class="input-group">
+            <label for="signupName">Nome Completo</label>
+            <input type="text" id="signupName" placeholder="Digite seu nome" required>
+          </div>
+
+          <div class="input-group">
+            <label for="signupEmail">E-mail</label>
+            <input type="email" id="signupEmail" placeholder="Digite seu e-mail" required>
+          </div>
+
+          <div class="input-group">
+            <label for="signupPassword">Senha</label>
+            <input type="password" id="signupPassword" placeholder="Mínimo 6 caracteres" minlength="6" required>
+          </div>
+
+          <div class="input-group">
+            <label for="signupConfirmPassword">Confirmar Senha</label>
+            <input type="password" id="signupConfirmPassword" placeholder="Confirme sua senha" required>
+          </div>
+
+          <p class="form-message" id="signupMessage" aria-live="polite"></p>
+
+          <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+
+      </div>
+    </section>
+
+    <!-- PAINEL BRANCO -->
+    <aside class="panel panel-content" id="panelContent">
+      <div class="panel-inner">
+        <h1 class="welcome-title">BEM-VINDO!</h1>
+        <p class="welcome-subtitle" id="welcomeSubtitle">Não tem uma conta? Crie uma agora mesmo.</p>
+        <button type="button" class="btn btn-ghost" id="toggleModeBtn">Criar</button>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
