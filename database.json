@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Igor Souza da Silva",
+      "email": "silvaigorsouza90@gmail.com",
+      "password_hash": "$2b$10$uhrT0IBk4eTQE9X0jTToBu3ZrSi.MO0fIFaKnmVSFwiS2UkUd0sq2",
+      "created_at": "2026-07-05T18:20:15.363Z"
+    }
+  ],
+  "nextId": 2
+}
