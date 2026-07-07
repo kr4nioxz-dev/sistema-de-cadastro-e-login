@@ -4,7 +4,7 @@ Tela dividida em dois painéis (formulário em azul, boas-vindas em branco) que
 troca de modo (login ⇄ cadastro) com animação, com um back-end simples para
 guardar os usuários.
 
-## Como rodar
+## Como Rodar
 
 ```bash
 npm install
@@ -34,9 +34,6 @@ tela-login/
 | `/api/register`  | POST   | `{ name, email, password }`                 |
 | `/api/login`     | POST   | `{ email, password }`                       |
 
-## Próximos passos sugeridos
+## Observações Importantes
 
-- Trocar `database.json` por um banco de verdade (Postgres, MySQL, SQLite)
-  quando o projeto crescer — só é preciso editar `db.js`.
-- Adicionar sessão/JWT para manter o usuário logado entre páginas.
-- Adicionar limite de tentativas de login (rate limiting) contra força bruta.
+O site, atualmente, roda apenas na minha máquina. Este repositório foi criado para fins educativos.
