@@ -24,7 +24,6 @@ npm start
 ```
 
 E depois, acessando **http://localhost:3000** no navegador.
-OBS.: Só funciona na minha máquina.
 
 ## Estrutura
 
@@ -44,7 +43,6 @@ tela-login/
 
 ## API
 
-<<<<<<< HEAD
 | Rota             | Método | Descrição                                            |
 |------------------|--------|------------------------------------------------------|
 | `/api/register`  | POST   | `{ name, email, password }` → cria uma conta         |
@@ -60,4 +58,3 @@ tela-login/
 ## Observações Importantes
 
 O site, atualmente, roda apenas na minha máquina. Este repositório foi criado para fins educativos.
->>>>>>> 46e06f57da5cecd19a780fb5fbfb7cfe773b3629
