@@ -57,5 +57,7 @@ tela-login/
 | `/api/register`  | POST   | `{ name, email, password }`                 |
 | `/api/login`     | POST   | `{ email, password }`                       |
 
+## Observações Importantes
+
 O site, atualmente, roda apenas na minha máquina. Este repositório foi criado para fins educativos.
 >>>>>>> 46e06f57da5cecd19a780fb5fbfb7cfe773b3629
