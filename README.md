@@ -1,4 +1,4 @@
-# Tela de Login / Cadastro - Azul & Preto
+# Tela de Login / Cadastro
 
 Tela dividida em dois painéis com um formulário em azul e boas-vindas em branco que
 troca de modo (login ⇄ cadastro) com animação, com um back-end simples para
